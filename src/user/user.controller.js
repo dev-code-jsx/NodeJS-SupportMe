@@ -40,3 +40,20 @@ export const getUsuarioById = async (req, res) => {
         usuario
     });
 } 
+
+export const usuarioPut = async (req, res = response) => {
+    const { id } = req.params;
+    const { _id, password, correo, ...resto } = req.body;
+
+    if(password) {
+        const salt = bcrypt.genSaltSync();
+        resto.password = bcrypt.hashSync(password, salt);
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
+
+    res.status(200).json({
+        usuario
+    }); 
+} 
+

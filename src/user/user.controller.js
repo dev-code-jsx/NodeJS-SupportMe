@@ -33,3 +33,10 @@ export const usuarioGet = async (req = request, res = response) => {
     });
 }
 
+export const getUsuarioById = async (req, res) => {
+    const { id } = req.params;
+    const usuario = await Usuario.findById(id);
+    res.status(200).json({
+        usuario
+    });
+} 

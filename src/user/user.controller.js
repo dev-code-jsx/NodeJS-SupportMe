@@ -3,17 +3,20 @@ import bcrypt from "bcrypt";
 import Usuario from "./user.model.js";
 
 export const usuarioPost = async (req, res) => {
-    const {nombre, correo, password} = req.body;
-    const usuario = new Usuario({nombre, correo, password});
+    const { nombre, correo, password } = req.body;
+    const usuario = new Usuario({ nombre, correo, password });
 
     const salt = bcrypt.genSaltSync();
     usuario.password = bcrypt.hashSync(password, salt);
 
-    await usuario.save();
+    const preceptor = await Usuario.findOne({ role: 'PRECEPTOR_ROLE' });
+    if (preceptor.length > 0){
+        const preceptor = preceptores[Math.floor(Math.random() * preceptores.length)];
+        usuario.preceptor = preceptor._id;
+    }
 
-    res.status(200).json({
-        usuario
-    });
+    await usuario.save();
+    res.json({ usuario});
 } 
 
 export const usuarioGet = async (req = request, res = response) => {

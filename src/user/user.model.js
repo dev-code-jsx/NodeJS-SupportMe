@@ -22,8 +22,14 @@ const UsuarioSchema = new mongoose.Schema({
     estado: {
         type: Boolean,
         default: true
+    },
+    preceptor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario',
     }
-});
+    }, {
+        timestamps: true,
+    });
 
 UsuarioSchema.methods.toJSON = function() {
     const { __v, password, _id, ...usuario } = this.toObject();

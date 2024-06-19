@@ -47,7 +47,7 @@ class Server{
         /*this.app.use(this.authPath, authRoutes);
         this.app.use(this.usuarioPath, userRoutes);
         this.app.use(this.companyPath, companyRoutes);*/
-        thia.app.use(this.usuarioPath, userRoutes);
+        this.app.use(this.usuarioPath, userRoutes);
     }
 
     listen(){

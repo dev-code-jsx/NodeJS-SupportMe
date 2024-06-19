@@ -1,39 +1,34 @@
 import { response, request } from "express";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import Usuario from "./user.model.js";
 
-export const usuarioPost = async (req, res) => {
-    const { nombre, correo, password } = req.body;
-    const usuario = new Usuario({ nombre, correo, password });
+export const usuariosPost = async (req, res) => {
+    const { nombre, correo, password, role } = req.body;
+    const usuario = new Usuario({ nombre, correo, password, role });
 
-    const salt = bcrypt.genSaltSync();
-    usuario.password = bcrypt.hashSync(password, salt);
+    const salt = bcryptjs.genSaltSync();
+    usuario.password = bcryptjs.hashSync(password, salt);
 
-    const preceptor = await Usuario.findOne({ role: 'PRECEPTOR_ROLE' });
-    if (preceptor.length > 0){
+    // Solo buscar preceptores si el role no es PRECEPTOR_ROLE
+    if (role !== 'PRECEPTOR_ROLE') {
+        const preceptores = await Usuario.find({ role: 'PRECEPTOR_ROLE' });
+        if (preceptores.length === 0) {
+            return res.status(400).json({
+                msg: 'No hay preceptores disponibles en este momento, inténtalo más tarde'
+            });
+        }
+
         const preceptor = preceptores[Math.floor(Math.random() * preceptores.length)];
         usuario.preceptor = preceptor._id;
     }
 
     await usuario.save();
-    res.json({ usuario});
-} 
- 
+    res.json({ usuario });
+};
+
 export const usuarioGet = async (req = request, res = response) => {
-    const { limite = 5, desde = 0 } = req.query;
-    const query = { estado: true };
-
-    const [total, usuarios] = await Promise.all([
-        Usuario.countDocuments(query),
-        Usuario.find(query)
-            .skip(Number(desde))
-            .limit(number(limite))
-    ]);
-
-    res.status(200).json({
-        total,
-        usuarios
-    });
+    const usuarios = await Usuario.find().select('-password');
+    res.json({ usuarios });
 }
 
 export const getUsuarioById = async (req, res) => {
@@ -42,28 +37,33 @@ export const getUsuarioById = async (req, res) => {
     res.status(200).json({
         usuario
     });
-} 
+}
 
 export const usuarioPut = async (req, res = response) => {
     const { id } = req.params;
     const { _id, password, correo, ...resto } = req.body;
 
-    if(password) {
-        const salt = bcrypt.genSaltSync();
-        resto.password = bcrypt.hashSync(password, salt);
+    if (password) {
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync(password, salt);
     }
 
     const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
 
     res.status(200).json({
         usuario
-    }); 
-} 
+    });
+}
 
 export const usuarioDelete = async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
+    // Eliminar completamente el usuario
+    const usuario = await Usuario.findByIdAndDelete(id);
 
-    res.status(200).json({ msg: 'Usuario eliminado', usuario});
+    if (!usuario) {
+        return res.status(404).json({ msg: 'Usuario no encontrado' });
+    }
+
+    res.json({ msg: 'Usuario eliminado correctamente' });
 }

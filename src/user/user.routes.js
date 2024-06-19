@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import {
-    usuarioPost,
+    usuariosPost,
     usuarioGet,
     getUsuarioById,
     usuarioPut,
@@ -29,7 +29,7 @@ router.post(
         check("correo").custom(existenteEmail),
         validarCampos,
     ],
-    usuarioPost
+    usuariosPost
 );
 
 router.get(

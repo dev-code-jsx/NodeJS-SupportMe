@@ -18,7 +18,7 @@ export const usuarioPost = async (req, res) => {
     await usuario.save();
     res.json({ usuario});
 } 
-
+ 
 export const usuarioGet = async (req = request, res = response) => {
     const { limite = 5, desde = 0 } = req.query;
     const query = { estado: true };

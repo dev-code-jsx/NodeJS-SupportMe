@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import { dbConnection } from './mongo.js';
 import userRoutes from '../src/user/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
+import { newUser } from '../src/user/user.controller.js';
 /*import userRoutes from '../src/users/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
 import companyRoutes from '../src/companies/company.routes.js';*/
@@ -34,6 +35,7 @@ class Server{
 
     async conectarDB(){
         await dbConnection();
+        await newUser();
     }
 
     middlewares(){

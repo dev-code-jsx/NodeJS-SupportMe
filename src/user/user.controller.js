@@ -70,7 +70,6 @@ export const usuarioPut = async (req, res = response) => {
 export const usuarioDelete = async (req, res) => {
     const { id } = req.params;
 
-    // Eliminar completamente el usuario
     const usuario = await Usuario.findByIdAndDelete(id);
 
     if (!usuario) {
@@ -78,4 +77,29 @@ export const usuarioDelete = async (req, res) => {
     }
 
     res.json({ msg: 'Usuario eliminado correctamente' });
+}
+
+export const newUser = async () => {
+    try {
+        const existingAdmin = await Usuario.findOne({ correo: "admin-plataform@gmail.com" }); // Cambiado a 'correo'
+
+        if (existingAdmin) {
+            console.log("Admin user already exists");
+        } else {
+            const newAdmin = new Usuario({
+                nombre: 'admin-plataform',
+                correo: 'admin-plataform@gmail.com',
+                password: 'admin123',
+                role: 'ADMIN_ROLE'
+            });
+
+            const salt = bcryptjs.genSaltSync();
+            newAdmin.password = bcryptjs.hashSync(newAdmin.password, salt);
+
+            await newAdmin.save();
+            console.log("Admin user created successfully", newAdmin);
+        }
+    } catch (error) {
+        console.log("Error creating admin user", error);
+    }
 }

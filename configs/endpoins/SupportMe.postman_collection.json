@@ -40,6 +40,37 @@
 					"response": []
 				},
 				{
+					"name": "postPreceptor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Preceptor1\",\r\n  \"correo\": \"preceptor1@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/user/addPreceptor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"user",
+								"addPreceptor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getUser",
 					"request": {
 						"method": "GET",
@@ -147,7 +178,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"pruebapaciente5@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"admin-plataform@gmail.com\",\r\n  \"password\": \"admin123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

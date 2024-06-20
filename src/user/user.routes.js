@@ -5,7 +5,8 @@ import {
     usuarioGet,
     getUsuarioById,
     usuarioPut,
-    usuarioDelete
+    usuarioDelete,
+    postPreceptor
 } from './user.controller.js';
 
 import {
@@ -30,6 +31,19 @@ router.post(
         validarCampos,
     ],
     usuariosPost
+);
+
+router.post(
+    "/addPreceptor",
+    [
+        check("nombre", "El nombre es obligatorio").not().isEmpty(),
+        check("password", "La contraseña es obligatoria").not().isEmpty(),
+        check("password", "La contraseña debe ser más de 6 letras".italics()).isLength({ min: 6 }),
+        check("correo", "El correo no es válido").isEmail(),
+        check("correo").custom(existenteEmail),
+        validarCampos,
+    ],
+    postPreceptor
 );
 
 router.get(

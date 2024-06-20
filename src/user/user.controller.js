@@ -26,6 +26,18 @@ export const usuariosPost = async (req, res) => {
     res.json({ usuario });
 };
 
+export const postPreceptor = async (req, res) => {
+    const { nombre, correo, password } = req.body;
+    const role = 'PRECEPTOR_ROLE';
+    const usuario = new Usuario({ nombre, correo, password, role });
+
+    const salt = bcryptjs.genSaltSync();
+    usuario.password = bcryptjs.hashSync(password, salt);
+
+    await usuario.save();
+    res.json({ usuario });
+};
+
 export const usuarioGet = async (req = request, res = response) => {
     const usuarios = await Usuario.find().select('-password');
     res.json({ usuarios });

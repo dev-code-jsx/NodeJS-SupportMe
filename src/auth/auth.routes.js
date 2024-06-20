@@ -1,38 +1,20 @@
-import bcryptjs from 'bcryptjs';
-import User from '../user/user.model.js';
-import { generateJWT } from '../helpers/generate-jwt.js';
+import { Router } from "express";
+import { check } from "express-validator";  
 
-export const login = async (req, res) => {
-    const { correo, password } = req.body;
+import { login } from "./auth.controller.js";
+import { validarCampos } from "../middlewares/validar-campos.js";
 
-    try {
-        const user = await User.findOne({ correo });
+const router = Router();
 
-        if(user && (await bcryptjs.compare(password, user.password))){
-            const token = await generateJWT(user.id);
+router.post(
+    '/login',
+    [
+        check("correo", "El correo es obligatorio").isEmail(),
+        check("correo", "El correo no es válido").not().isEmpty(),
+        check("password", "La contraseña es obligatoria").not().isEmpty(),
+        validarCampos,
+    ],
+    login
+)
 
-            res.status(200).json({
-                msg: "Login OK!!!",
-                userDetails: {
-                    id: user.id,
-                    token: token
-                },
-            });
-        }
-
-        if (!user) {
-            return res
-                .status(400)
-                .send(`Wrong credentials, ${correo} doesn't exists en database`);
-        }
-
-        const validPassword = bcryptjs.compareSync(password, user.password);
-        if(!validPassword){
-            return res.status(400).send("wrong password");
-        }
-    } catch (e) {
-        res.status(500).json({
-            msg: 'Error interno, hable con el administrador'
-        });
-    }
-}
+export default router;

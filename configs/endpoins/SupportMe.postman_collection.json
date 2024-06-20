@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"pruebaPaciente1\",\r\n  \"correo\": \"pruebapaciente1@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n  \"nombre\": \"pruebaPaciente5\",\r\n  \"correo\": \"pruebapaciente5@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -66,7 +66,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/supportMe/v1/user/66732812b2e0c8836f96b31a",
+							"raw": "http://localhost:3000/supportMe/v1/user/66739931dd9456eb0cefddcb",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -76,7 +76,7 @@
 								"supportMe",
 								"v1",
 								"user",
-								"66732812b2e0c8836f96b31a"
+								"66739931dd9456eb0cefddcb"
 							]
 						}
 					},
@@ -89,7 +89,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"pruebaPreceptor1Update\"\r\n}",
+							"raw": "{\r\n  \"nombre\": \"pruebaPaciente2Update\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -97,7 +97,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/supportMe/v1/user/66732812b2e0c8836f96b31a",
+							"raw": "http://localhost:3000/supportMe/v1/user/66734ca8fbc811c067cd8b27",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -107,7 +107,7 @@
 								"supportMe",
 								"v1",
 								"user",
-								"66732812b2e0c8836f96b31a"
+								"66734ca8fbc811c067cd8b27"
 							]
 						}
 					},
@@ -119,7 +119,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/supportMe/v1/user/66732847b2e0c8836f96b31d",
+							"raw": "http://localhost:3000/supportMe/v1/user/66734ca8fbc811c067cd8b27",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -129,7 +129,43 @@
 								"supportMe",
 								"v1",
 								"user",
-								"66732847b2e0c8836f96b31d"
+								"66734ca8fbc811c067cd8b27"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"pruebapaciente5@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"auth",
+								"login"
 							]
 						}
 					},

@@ -5,7 +5,7 @@ import {
     recursosPost,
     recursosPut,
     recursosDelete,
-    recursoGetById
+    getRecursoById
 } from './recurso.controller.js';
 import {
     existeRecursoById
@@ -15,7 +15,7 @@ import { validarCampos } from '../middlewares/validar-campos.js';
 
 const router = Router();
 
-router.get('/', usuarioGet);
+router.get('/', recursoGet);
 
 router.post(
     "/",
@@ -29,13 +29,13 @@ router.post(
 );
 
 router.get(
-    "id",
+    "/:id",
     [
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeRecursoById),
         validarCampos,
     ],
-    getRecursosById
+    getRecursoById
 );
 
 router.put(

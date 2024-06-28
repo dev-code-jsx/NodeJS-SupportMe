@@ -15,10 +15,18 @@ import {
 } from '../helpers/db-validators.js';
 
 import { validarCampos } from '../middlewares/validar-campos.js';
+import { validarJWT } from '../middlewares/validate-jwt.js';
+import { isAdmin, isPreceptor, isAdminOrPreceptor, isPaciente } from "../middlewares/validate-role.js"
 
 const router = Router();
 
-router.get('/', usuarioGet);
+router.get('/', 
+    [
+        validarJWT,
+        isAdminOrPreceptor  
+    ],
+    usuarioGet
+);
 
 router.post(
     "/",
@@ -36,6 +44,8 @@ router.post(
 router.post(
     "/addPreceptor",
     [
+        validarJWT,
+        isAdmin,
         check("nombre", "El nombre es obligatorio").not().isEmpty(),
         check("password", "La contraseña es obligatoria").not().isEmpty(),
         check("password", "La contraseña debe ser más de 6 letras".italics()).isLength({ min: 6 }),
@@ -59,6 +69,8 @@ router.get(
 router.put(
     "/:id",
     [
+        validarJWT,
+        isPaciente,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeUsuarioById),
         validarCampos,
@@ -69,6 +81,9 @@ router.put(
 router.delete(
     "/:id",
     [
+        validarJWT,
+        isPaciente,
+        isAdmin,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeUsuarioById),
         validarCampos,

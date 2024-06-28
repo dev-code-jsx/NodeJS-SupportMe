@@ -6,7 +6,10 @@ import {
     getUsuarioById,
     usuarioPut,
     usuarioDelete,
-    postPreceptor
+    postPreceptor,
+    getPacientesByPreceptorId,
+    getPreceptores,
+    getPacientes,
 } from './user.controller.js';
 
 import {
@@ -27,6 +30,37 @@ router.get('/',
     ],
     usuarioGet
 );
+
+router.get(
+    "/preceptores",
+    [
+        validarJWT,
+        isAdminOrPreceptor
+    ],
+    getPreceptores
+);
+
+
+router.get(
+    "/pacientes",
+    [
+        validarJWT,
+        isAdminOrPreceptor
+    ],
+    getPacientes
+);
+
+router.get(
+    "/preceptor/:id/pacientes",
+    [
+        validarJWT,  
+        isAdminOrPreceptor,
+        check("id", "No es un ID válido").isMongoId(),
+        validarCampos
+    ],
+    getPacientesByPreceptorId
+);
+
 
 router.post(
     "/",

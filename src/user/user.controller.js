@@ -173,6 +173,48 @@ export const getUsuarioById = async (req, res) => {
     });
 }
 
+export const getPreceptores = async (req, res = response) => {
+    try {
+        const preceptores = await Usuario.find({ role: 'PRECEPTOR_ROLE' }).select('-password');
+
+        res.json({ preceptores });
+    } catch (error) {
+        console.error("Error al obtener preceptores:", error);
+        res.status(500).json({ msg: 'Error al obtener preceptores' });
+    }
+};
+
+export const getPacientes = async (req, res = response) => {
+    try {
+        const pacientes = await Usuario.find({ role: 'PACIENTE_ROLE' }).select('-password');
+
+        res.json({ pacientes });
+    } catch (error) {
+        console.error("Error al obtener pacientes:", error);
+        res.status(500).json({ msg: 'Error al obtener pacientes' });
+    }
+};
+
+export const getPacientesByPreceptorId = async (req, res = response) => {
+    const { id } = req.params;
+
+    try {
+
+        const preceptor = await Usuario.findById(id);
+
+        if (!preceptor) {
+            return res.status(404).json({ msg: 'Preceptor no encontrado' });
+        }
+
+        const pacientes = await Usuario.find({ preceptor: preceptor._id });
+
+        res.json({ pacientes });
+    } catch (error) {
+        console.error("Error al obtener pacientes por preceptor:", error);
+        res.status(500).json({ msg: 'Error al obtener pacientes por preceptor' });
+    }
+};
+
 export const usuarioPut = async (req, res = response) => {
     const { id } = req.params;
     const { _id, password, correo, ...resto } = req.body;

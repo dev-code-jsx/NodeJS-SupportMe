@@ -3,16 +3,16 @@ import mongoose from "mongoose";
 const UsuarioSchema = new mongoose.Schema({
     nombre: {
         type: String,
-        required: [true, "El nombre es requerido"]
+        required: [true, "The name is required"]
     },
     correo: {
         type: String,
-        required: [true, "El correo es requerido"],
+        required: [true, "The email is required"],
         unique: true
     },
     password: {
         type: String,
-        required: [true, "La contraseña es requerida"]
+        required: [true, "the password is required"]
     },
     role: {
         type: String,

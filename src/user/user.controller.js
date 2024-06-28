@@ -18,7 +18,7 @@ export const usuariosPost = async (req, res) => {
         const preceptores = await Usuario.find({ role: 'PRECEPTOR_ROLE' });
         if (preceptores.length === 0) {
             return res.status(400).json({
-                msg: 'No hay preceptores disponibles en este momento, inténtalo más tarde',
+                msg: 'No preceptors available at this moment, please try again later',
             });
         }
 
@@ -29,14 +29,14 @@ export const usuariosPost = async (req, res) => {
     await usuario.save();
 
     try {
-        const asunto = 'Bienvenido a SupportMe';
+        const asunto = 'Welcome to SupportMe';
         const contenidoHTML = `
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Bienvenido a SupportMe</title>
+                <title>Welcome to SupportMe</title>
                 <style>
                     body {
                         font-family: Arial, sans-serif;
@@ -111,13 +111,13 @@ export const usuariosPost = async (req, res) => {
                         <img src="https://i.imgur.com/5dN2aE8.jpeg" alt="SupportMe Logo">
                         <h1>SupportMe</h1>
                     </div>
-                    <h1>Bienvenido a la Plataforma</h1>
-                    <p>Hola ${nombre},</p>
-                    <p>Estamos muy emocionados de tenerte con nosotros,</p>
-                    <p><strong>Correo:</strong> ${correo}</p>
-                    <p>Gracias por unirte a nuestra comunidad.</p>
+                    <h1>Welcome to the Platform</h1>
+                    <p>Hi ${nombre}!!!,</p>
+                    <p>We are very excited to have you with us</p>
+                    <p><strong>Email:</strong> ${correo}</p>
+                    <p>Thank you for joining out community</p>
                     <div class="footer">
-                        <p>&copy; 2024 SupportMe. Todos los derechos reservados.</p>
+                        <p>&copy; 2024 SupportMe. All rights reserved.</p>
                     </div>
                 </div>
             </body>
@@ -126,10 +126,10 @@ export const usuariosPost = async (req, res) => {
 
         await enviarCorreo(correo, asunto, contenidoHTML);
 
-        res.status(201).json({ msg: 'Usuario creado y correo enviado', usuario });
+        res.status(201).json({ msg: 'User created and email sent', usuario });
     } catch (error) {
-        console.error('Error enviando correo:', error);
-        res.status(500).json({ msg: 'Error creando usuario o enviando correo' });
+        console.error('Error sending mail:', error);
+        res.status(500).json({ msg: 'Error creating user or sending mail' });
     }
 };
 
@@ -145,14 +145,14 @@ export const postPreceptor = async (req, res) => {
     await usuario.save();
 
     try {
-        const asunto = 'Bienvenido a SupportMe';
+        const asunto = 'Welcome to SupportMe';
         const contenidoHTML = `
             <!DOCTYPE html>
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Bienvenido a SupportMe</title>
+                <title>Welcome to SupportMe</title>
                 <style>
                     body {
                         font-family: Arial, sans-serif;
@@ -227,13 +227,13 @@ export const postPreceptor = async (req, res) => {
                         <img src="https://i.imgur.com/5dN2aE8.jpeg" alt="SupportMe Logo">
                         <h1>SupportMe</h1>
                     </div>
-                    <h1>Bienvenido a la Plataforma</h1>
-                    <p>Hola ${nombre},</p>
-                    <p>Estamos muy emocionados de tenerte con nosotros como preceptor.</p>
-                    <p><strong>Correo:</strong> ${correo}</p>
-                    <p>Gracias por contribuir a nuestra comunidad.</p>
+                    <h1>Welcome to the Platform</h1>
+                    <p>Hi ${nombre}!!!!,</p>
+                    <p>We are very excited to have you with us as a preceptor.</p>
+                    <p><strong>Email:</strong> ${correo}</p>
+                    <p>Thank you for contributing to our community.</p>
                     <div class="footer">
-                        <p>&copy; 2024 SupportMe. Todos los derechos reservados.</p>
+                        <p>&copy; 2024 SupportMe. All rights reserved.</p>
                     </div>
                 </div>
             </body>
@@ -242,10 +242,10 @@ export const postPreceptor = async (req, res) => {
 
         await enviarCorreo(correo, asunto, contenidoHTML);
 
-        res.status(201).json({ msg: 'Preceptor creado y correo enviado', usuario });
+        res.status(201).json({ msg: 'Preceptor created and email sent', usuario });
     } catch (error) {
-        console.error('Error enviando correo:', error);
-        res.status(500).json({ msg: 'Error creando preceptor o enviando correo' });
+        console.error('Error sending email:', error);
+        res.status(500).json({ msg: 'Error creating preceptor or sending email' });
     }
 };
 
@@ -268,8 +268,8 @@ export const getPreceptores = async (req, res = response) => {
 
         res.json({ preceptores });
     } catch (error) {
-        console.error("Error al obtener preceptores:", error);
-        res.status(500).json({ msg: 'Error al obtener preceptores' });
+        console.error("Error in obtaining preceptors:", error);
+        res.status(500).json({ msg: 'Error in obtaining preceptors' });
     }
 };
 
@@ -279,8 +279,8 @@ export const getPacientes = async (req, res = response) => {
 
         res.json({ pacientes });
     } catch (error) {
-        console.error("Error al obtener pacientes:", error);
-        res.status(500).json({ msg: 'Error al obtener pacientes' });
+        console.error("Error in obtaining patients:", error);
+        res.status(500).json({ msg: 'Error in obtaining patients' });
     }
 };
 
@@ -292,15 +292,15 @@ export const getPacientesByPreceptorId = async (req, res = response) => {
         const preceptor = await Usuario.findById(id);
 
         if (!preceptor) {
-            return res.status(404).json({ msg: 'Preceptor no encontrado' });
+            return res.status(404).json({ msg: 'Preceptor not found' });
         }
 
         const pacientes = await Usuario.find({ preceptor: preceptor._id });
 
         res.json({ pacientes });
     } catch (error) {
-        console.error("Error al obtener pacientes por preceptor:", error);
-        res.status(500).json({ msg: 'Error al obtener pacientes por preceptor' });
+        console.error("Error in obtaining patients by preceptor:", error);
+        res.status(500).json({ msg: 'Error in obtaining patients by preceptor' });
     }
 };
 
@@ -326,10 +326,10 @@ export const usuarioDelete = async (req, res) => {
     const usuario = await Usuario.findByIdAndDelete(id);
 
     if (!usuario) {
-        return res.status(404).json({ msg: 'Usuario no encontrado' });
+        return res.status(404).json({ msg: 'User not found' });
     }
 
-    res.json({ msg: 'Usuario eliminado correctamente' });
+    res.json({ msg: 'User successfully deleted' });
 }
 
 export const newUser = async () => {

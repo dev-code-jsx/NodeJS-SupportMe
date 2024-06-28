@@ -55,7 +55,7 @@ router.get(
     [
         validarJWT,  
         isAdminOrPreceptor,
-        check("id", "No es un ID válido").isMongoId(),
+        check("id", "Not a valid ID").isMongoId(),
         validarCampos
     ],
     getPacientesByPreceptorId
@@ -65,10 +65,10 @@ router.get(
 router.post(
     "/",
     [
-        check("nombre", "El nombre es obligatorio").not().isEmpty(),
-        check("password", "La contraseña es obligatoria").not().isEmpty(),
-        check("password", "La contraseña debe ser más de 6 letras".italics()).isLength({ min: 6 }),
-        check("correo", "El correo no es válido").isEmail(),
+        check("nombre", "The name is required").not().isEmpty(),
+        check("password", "Password is mandatory").not().isEmpty(),
+        check("password", "Password must be longer than 6 letters".italics()).isLength({ min: 6 }),
+        check("correo", "The email is invalid").isEmail(),
         check("correo").custom(existenteEmail),
         validarCampos,
     ],
@@ -80,10 +80,10 @@ router.post(
     [
         validarJWT,
         isAdmin,
-        check("nombre", "El nombre es obligatorio").not().isEmpty(),
-        check("password", "La contraseña es obligatoria").not().isEmpty(),
-        check("password", "La contraseña debe ser más de 6 letras".italics()).isLength({ min: 6 }),
-        check("correo", "El correo no es válido").isEmail(),
+        check("nombre", "The name is required").not().isEmpty(),
+        check("password", "Password is mandatory").not().isEmpty(),
+        check("password", "Password must be longer than 6 letters".italics()).isLength({ min: 6 }),
+        check("correo", "The email is invalid").isEmail(),
         check("correo").custom(existenteEmail),
         validarCampos,
     ],
@@ -93,7 +93,7 @@ router.post(
 router.get(
     "/:id",
     [
-        check("id", "No es un ID válido").isMongoId(),
+        check("id", "Not a valid ID").isMongoId(),
         check("id").custom(existeUsuarioById),
         validarCampos
     ],
@@ -105,7 +105,7 @@ router.put(
     [
         validarJWT,
         isPaciente,
-        check("id", "No es un ID válido").isMongoId(),
+        check("id", "Not a valid ID").isMongoId(),
         check("id").custom(existeUsuarioById),
         validarCampos,
     ],
@@ -118,7 +118,7 @@ router.delete(
         validarJWT,
         isPaciente,
         isAdmin,
-        check("id", "No es un ID válido").isMongoId(),
+        check("id", "Not a valid ID").isMongoId(),
         check("id").custom(existeUsuarioById),
         validarCampos,
     ],

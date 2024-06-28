@@ -29,3 +29,11 @@ export const getRecursoById = async (req, res) => {
 
     res.status(200).json({ recurso });
 }
+
+export const recursoPut = async (req, res) => {
+    const { id }  = req.params;
+    const { _id, ...resto} = req.body;
+    const recurso = await Recurso.findByIdAndUpdate(id, resto, { new: true});
+    res.status(200).json({ recurso });
+};
+

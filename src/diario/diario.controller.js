@@ -2,7 +2,24 @@ import Diario from './diario.model.js';
 import Usuario from '../user/user.model.js'
 import mongoose from 'mongoose';
 
+export const diarioPost = async (req, res) => {
+    const { contenido } = req.body;
+    const usuario = req.usuario._id;
 
+    const fechaHoy = new Date().toISOString().split('T')[0];
+
+    let diario = await Diario.findOne({ usuario, fecha: fechaHoy });
+
+    if (!diario){
+        diario = new Diario({ usuario, fecha: fechaHoy, entreadas: [{ contenido }] });
+    } else {
+        diario.entradas.push({ contenido });
+    }
+
+    await diario.save();
+
+    res.status(201).json(diario);
+};
 
 export const getDiarioByPacienteId = async (req, res) => {
     const { pacienteId } = req.params;

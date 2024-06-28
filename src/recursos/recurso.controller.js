@@ -22,3 +22,10 @@ export const recursoGet = async (req, res) => {
 
     res.status(200).json({ total, recurso });
 };
+
+export const getRecursoById = async (req, res) => {
+    const { id } = req.params;
+    const recurso = await Recurso.findById(id);
+
+    res.status(200).json({ recurso });
+}

@@ -8,6 +8,7 @@ import { dbConnection } from './mongo.js';
 import userRoutes from '../src/user/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
 import { newUser } from '../src/user/user.controller.js';
+import recursoRoutes from "../src/recursos/recurso.routes.js";
 /*import userRoutes from '../src/users/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
 import companyRoutes from '../src/companies/company.routes.js';*/
@@ -19,9 +20,7 @@ class Server{
         this.port = process.env.PORT;
         this.usuarioPath = '/supportMe/v1/user'
         this.authPath = '/supportMe/v1/auth'
-
-
-
+        this.recursoPath = '/supportMe/v1/recurso'
 
 
         /*this.usuarioPath = '/companyControl/v1/users'
@@ -52,6 +51,7 @@ class Server{
         this.app.use(this.companyPath, companyRoutes);*/
         this.app.use(this.usuarioPath, userRoutes);
         this.app.use(this.authPath, authRoutes);
+        this.app.use(this.recursoPath, recursoRoutes);
     }
 
     listen(){

@@ -42,3 +42,24 @@ export const getDiarioByPacienteId = async (req, res) => {
 
     res.json(diarios);
 }
+
+export const getDiarioById = async (req, res) => {
+    const { id } = req.params;
+    const usuario = req.usuario;
+
+    const diario = await Diario.findById(id).populate('usuario', 'nombre preceptor');
+
+    if (!diario) {
+        return res.status(404).json({
+            msg: 'Diary not found'
+        });
+    }
+
+    if (!diario.usuario._id.equals(usuario._id) && !diario.usuario.preceptor.equals(usuario._id)) {
+        return res.status(403).json({
+            msg: "You don't have access to view this diary"
+        });
+    }
+
+    res.json(diario);
+}

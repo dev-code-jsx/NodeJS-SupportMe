@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"pruebaPaciente5\",\r\n  \"correo\": \"pruebapaciente5@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+							"raw": "{\r\n  \"nombre\": \"Alejandro Flores Yllescas\",\r\n  \"correo\": \"ayllescas34@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,6 +197,170 @@
 								"v1",
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recurso",
+			"item": [
+				{
+					"name": "postRecurso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Recurso 2\",\r\n    \"tipo\": \"juego\",\r\n    \"contenido\": \"Contenido del recurso 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/recurso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"recurso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecursos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Recurso 2\",\r\n    \"tipo\": \"juego\",\r\n    \"contenido\": \"Contenido del recurso 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/recurso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"recurso"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecursoById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Recurso 2\",\r\n    \"tipo\": \"juego\",\r\n    \"contenido\": \"Contenido del recurso 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/recurso/667e0fd1efc56681bbcb3db5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"recurso",
+								"667e0fd1efc56681bbcb3db5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "putRecurso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Recurso 2\",\r\n    \"tipo\": \"juego\",\r\n    \"contenido\": \"Contenido del recurso 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/recurso/667e0fd1efc56681bbcb3db5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"recurso",
+								"667e0fd1efc56681bbcb3db5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRecurso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Recurso 2\",\r\n    \"tipo\": \"juego\",\r\n    \"contenido\": \"Contenido del recurso 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/recurso/667e0fd1efc56681bbcb3db5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"recurso",
+								"667e0fd1efc56681bbcb3db5"
 							]
 						}
 					},

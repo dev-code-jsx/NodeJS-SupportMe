@@ -12,14 +12,25 @@ import {
 } from '../helpers/db-validators.js';
 
 import { validarCampos } from '../middlewares/validar-campos.js';
+import { validarJWT } from '../middlewares/validate-jwt.js';
+import { isAdmin, isPreceptor, isAdminOrPreceptor, isPaciente } from "../middlewares/validate-role.js"
 
 const router = Router();
 
-router.get('/', recursoGet);
+router.get('/',
+    [
+        validarJWT,
+        isAdminOrPreceptor,
+        isPaciente
+    ],
+    recursoGet
+);
 
 router.post(
     "/",
     [
+        validarJWT,
+        isAdmin,
         check("titulo", "El título es obligatorio").not().isEmpty(),
         check("tipo", "El tipo es obligatorio").not().isEmpty(),
         check("contenido", "El contenido es obligatorio").not().isEmpty(),
@@ -31,6 +42,9 @@ router.post(
 router.get(
     "/:id",
     [
+        validarJWT,
+        isAdminOrPreceptor,
+        isPaciente,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeRecursoById),
         validarCampos,
@@ -41,6 +55,8 @@ router.get(
 router.put(
     "/:id",
     [
+        validarJWT,
+        isAdmin,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeRecursoById),
         validarCampos,
@@ -51,6 +67,8 @@ router.put(
 router.delete(
     "/:id",
     [
+        validarJWT,
+        isAdmin,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeRecursoById),
         validarCampos,

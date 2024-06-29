@@ -36,16 +36,13 @@ router.get(
     getDiarioByPacienteId
 );
 
-router.get(
-    '/paciente/:pacienteId/fecha/:fecha',
-    [
-        validarJWT,
-        check('pacienteId', 'No es un ID válido').isMongoId(),
-        check('fecha', 'La fecha es obligatoria').isDate(),
-        validarCampos,
-    ],
-    getDiarioByDate
-);
+router.get('/fecha/:pacienteId/:fecha', [
+    validarJWT,
+    isPreceptorOrPaciente,
+    check('pacienteId', 'No es un ID válido').isMongoId(),
+    check('fecha', 'La fecha no es válida').isISO8601(),
+    validarCampos
+], getDiarioByDate);
 
 router.get('/:id', [
     validarJWT,

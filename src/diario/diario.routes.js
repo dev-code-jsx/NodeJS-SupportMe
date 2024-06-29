@@ -47,15 +47,12 @@ router.get(
     getDiarioByDate
 );
 
-router.get(
-    '/:id',
-    [
-        validarJWT,
-        check('id', 'No es un ID válido').isMongoId(),
-        validarCampos,
-    ],
-    getDiarioById
-);
+router.get('/:id', [
+    validarJWT,
+    isPreceptorOrPaciente,
+    check('id', 'No es un ID válido').isMongoId(),
+    validarCampos
+], getDiarioById);
 
 router.put(
     '/:id',

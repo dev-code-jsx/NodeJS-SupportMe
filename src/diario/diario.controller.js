@@ -61,9 +61,24 @@ export const getDiarioByPacienteId = async (req, res) => {
 
 export const getDiarioById = async (req, res) => {
     const { id } = req.params;
-    const usuario = req.usuario;
+    const usuario = req.user;
 
-    const diario = await Diario.findById(id).populate('usuario');
+    // Comprobación para asegurarse de que el ID es un MongoID válido
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(400).json({
+            msg: 'Invalid ID format'
+        });
+    }
+
+    let diario;
+    try {
+        diario = await Diario.findById(id).populate('usuario');
+    } catch (error) {
+        return res.status(500).json({
+            msg: 'Error retrieving the diary',
+            error: error.message
+        });
+    }
 
     if (!diario) {
         return res.status(404).json({
@@ -71,13 +86,13 @@ export const getDiarioById = async (req, res) => {
         });
     }
 
-    if (usuario.role === 'PACIENTE_ROLE' && diario.usuario._id.toString() !== usuario._id.toString()) {
+    if (usuario.role === 'PACIENTE_ROLE' && diario.usuario._id.toString() !== usuario.uid.toString()) {
         return res.status(403).json({
             msg: "You cannot see another patient's diary"
         });
     }
 
-    if (usuario.role === 'PRECEPTOR_ROLE' && diario.usuario.preceptor.toString() !== usuario._id.toString()) {
+    if (usuario.role === 'PRECEPTOR_ROLE' && diario.usuario.preceptor.toString() !== usuario.uid.toString()) {
         return res.status(403).json({
             msg: 'You are not the preceptor assigned to this patient.'
         });

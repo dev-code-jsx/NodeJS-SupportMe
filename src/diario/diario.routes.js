@@ -10,7 +10,7 @@ import {
 } from "./diario.controller.js";
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validate-jwt.js';
-import { isPaciente, isPreceptor, isAdmin, isAdminOrPreceptor } from '../middlewares/validate-role.js';
+import { isPaciente, isPreceptorOrPaciente ,isPreceptor, isAdmin, isAdminOrPreceptor } from '../middlewares/validate-role.js';
 
 const router = Router();
 
@@ -29,7 +29,8 @@ router.get(
     '/paciente/:pacienteId',
     [
         validarJWT,
-        check('pacienteId', 'no is a valid id').isMongoId(),
+        isPreceptorOrPaciente,
+        check('pacienteId', 'No es un ID válido').isMongoId(),
         validarCampos,
     ],
     getDiarioByPacienteId

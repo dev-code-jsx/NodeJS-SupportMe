@@ -35,9 +35,9 @@ export const diarioPost = async (req, res) => {
 
 export const getDiarioByPacienteId = async (req, res) => {
     const { pacienteId } = req.params;
-    const usuario = req.usuario;
+    const usuario = req.user;
 
-    if (usuario.role === 'PACIENTE_ROLE' && usuario._id.toString() !== pacienteId) {
+    if (usuario.role === 'PACIENTE_ROLE' && usuario.uid !== pacienteId) {
         return res.status(403).json({
             msg: 'You cannot see the diaries of other patients'
         });
@@ -45,7 +45,7 @@ export const getDiarioByPacienteId = async (req, res) => {
 
     if (usuario.role === 'PRECEPTOR_ROLE') {
         const paciente = await Usuario.findById(pacienteId);
-        if (!paciente || paciente.preceptor.toString() !== usuario._id.toString()) {
+        if (!paciente || paciente.preceptor.toString() !== usuario.uid) {
             return res.status(403).json({
                 msg: 'You are not the preceptor assigned to this patient.'
             });

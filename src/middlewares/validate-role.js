@@ -33,3 +33,15 @@ export const isAdminOrPreceptor = (req, res, next) => {
 
     return res.status(400).json({ msg: 'Necesitas tener rol de admin o preceptor' });
 }
+
+export const isPreceptorOrPaciente = (req, res, next) => {
+    const user = req.user;
+
+    console.log("User Role:", user.role); // Añade este log para verificar el rol del usuario
+
+    if (user.role === "PACIENTE_ROLE" || user.role === "PRECEPTOR_ROLE") {
+        return next();
+    }
+
+    return res.status(400).json({ msg: 'Necesitas tener rol de paciente o preceptor' });
+}

@@ -3,9 +3,9 @@ import Usuario from '../user/user.model.js'
 
 export const diarioPost = async (req, res) => {
     const { contenido } = req.body;
-    const usuario = req.usuario._id;
+    const { uid, role } = req.user;
 
-    if (usuario.role !== 'PACIENTE_ROLE') {
+    if (! role === 'PACIENTE_ROLE') {
         return res.status(403).json({
             msg: 'Only patients can create diaries'
         });
@@ -13,22 +13,22 @@ export const diarioPost = async (req, res) => {
 
     const fecha = new Date().toISOString().split('T')[0];
 
-    let diario = await Diario.findOne({ usuario: usuario._id, fecha });
+    let diario = await Diario.findOne({ usuario: uid, fecha });
 
     if (!diario) {
         diario = new Diario({
-            usuario: usuario._id,
+            usuario: uid,
             fecha,
-            entradas: [{ contenido }]
+            entradas: [{ contenido  }]
         });
     } else {
-        diario.entradas.push({ contenido });
+        diario.entradas.push({ contenido});
     }
 
     await diario.save();
 
     res.status(201).json({
-        msg: 'Entry created successfully',
+        msg: 'Diary entry successfully created',
         diario
     });
 };
@@ -59,27 +59,6 @@ export const getDiarioByPacienteId = async (req, res) => {
     });
 };
 
-/*export const getDiarioById = async (req, res) => {
-    const { id } = req.params;
-    const usuario = req.usuario;
-
-    const diario = await Diario.findById(id).populate('usuario', 'nombre preceptor');
-
-    if (!diario) {
-        return res.status(404).json({
-            msg: 'Diary not found'
-        });
-    }
-
-    if (!diario.usuario._id.equals(usuario._id) && !diario.usuario.preceptor.equals(usuario._id)) {
-        return res.status(403).json({
-            msg: "You don't have access to view this diary"
-        });
-    }
-
-    res.json(diario);
-}*/
-
 export const getDiarioById = async (req, res) => {
     const { id } = req.params;
     const usuario = req.usuario;
@@ -109,26 +88,6 @@ export const getDiarioById = async (req, res) => {
     });
 };
 
-/*export const getDiarioByFecha = async (req, res) => {
-    const { pacienteId, fecha } = req.params;
-    const usuario = req.usuario;
-
-    const diario = await Diario.findOne({ usuario: pacienteId, fecha }).populate('usuario', 'nombre preceptor');
-
-    if (!diario) {
-        return res.status(404).json({
-            msg: 'Diary not found'
-        });
-    }
-
-    if (!diario.usuario._id.equals(usuario._id) && !diario.usuario.preceptor.equals(usuario._id)) {
-        return res.status(403).json({
-            msg: 'No tienes permiso para ver este diario'
-        });
-    }
-
-    res.json(diario);
-}*/
 
 export const getDiarioByDate = async (req, res) => {
     const { pacienteId, fecha } = req.params;
@@ -162,38 +121,6 @@ export const getDiarioByDate = async (req, res) => {
     });
 };
 
-/*export const diariosPut = async (req, res) => {
-    const { id } = req.params;
-    const { contenido, entryId } = req.body;
-    const usuario = req.usuario;
-
-    const diario = await Diario.findById(id);
-
-    if (!diario) {
-        return res.status(404).json({
-            msg: 'Diary not found'
-        });
-    }
-
-    if (!diario.usuario.equals(usuario._id)) {
-        res.status(403).json({
-            msg: "You don't have access to edit this diary"
-        });
-    }
-
-    const entrada = diario.entradas.id(entryId);
-    if (!entrada) {
-        return res.status(404).json({
-            msg: 'Entry not found'
-        });
-    }
-
-    entrada.contenido = contenido;
-    await diario.save();
-
-    res.json(diario);
-};
-*/
 
 export const diariosPut = async (req, res) => {
     const { id } = req.params;
@@ -230,31 +157,6 @@ export const diariosPut = async (req, res) => {
 };
 
 
-/*export const diariosDelete = async (req, res) => {
-    const { id } = req.params;
-    const usuario = req.usuario;
-
-    const diario = await Diario.findById(id);
-
-    if (!diario) {
-        return res.status(404).json({
-            msg: 'Diary not found'
-        });
-    }
-
-    if (!diario.usuario.equals(usuario._id)) {
-        res.status(403).json({
-            msg: "You don't have access to delete this diary"
-        });
-    }
-
-    await diario.remove();
-
-    res.json({
-        msg: 'Diary deleted successfully'
-    });
-};
-*/
 
 export const deleteDiario = async (req, res) => {
     const { id } = req.params;

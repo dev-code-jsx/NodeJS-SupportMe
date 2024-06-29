@@ -9,6 +9,7 @@ import userRoutes from '../src/user/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
 import { newUser } from '../src/user/user.controller.js';
 import recursoRoutes from "../src/recursos/recurso.routes.js";
+import diarioRoutes from "../src/diario/diario.routes.js";
 /*import userRoutes from '../src/users/user.routes.js';
 import authRoutes from '../src/auth/auth.routes.js';
 import companyRoutes from '../src/companies/company.routes.js';*/
@@ -21,6 +22,7 @@ class Server{
         this.usuarioPath = '/supportMe/v1/user'
         this.authPath = '/supportMe/v1/auth'
         this.recursoPath = '/supportMe/v1/recurso'
+        this.diarioPath = '/supportMe/v1/diarios'
 
 
         /*this.usuarioPath = '/companyControl/v1/users'
@@ -52,6 +54,7 @@ class Server{
         this.app.use(this.usuarioPath, userRoutes);
         this.app.use(this.authPath, authRoutes);
         this.app.use(this.recursoPath, recursoRoutes);
+        this.app.use(this.diarioPath, diarioRoutes);
     }
 
     listen(){

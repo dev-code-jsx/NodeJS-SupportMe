@@ -9,8 +9,8 @@ import {
     deleteDiario
 } from "./diario.controller.js";
 import { validarCampos } from '../middlewares/validar-campos.js';
-import { validarJWT } from '../middlewares/validar-jwt.js';
-import { esPaciente, esPreceptor, isAdmin, isAdminOrPreceptor } from '../middlewares/validar-roles.js';
+import { validarJWT } from '../middlewares/validate-jwt.js';
+import { isPaciente, isPreceptor, isAdmin, isAdminOrPreceptor } from '../middlewares/validate-role.js';
 
 const router = Router();
 
@@ -18,6 +18,7 @@ router.post(
     '/',
     [
         validarJWT,
+        isPaciente,
         check('contenido', 'the content is required').not().isEmpty(),
         validarCampos
     ],

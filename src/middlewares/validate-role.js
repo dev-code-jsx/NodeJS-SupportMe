@@ -19,7 +19,7 @@ export const isPaciente = (req, res, next) => {
 
     if (user.role === "PACIENTE_ROLE") return next();
 
-    return res.status(400).json({ msg: `You don't have autoritation, your role is: user`})
+    return res.status(400).json({ msg: `You don't have autoritation, your role must be PACIENTE_ROLE`})
 }
 
 export const isAdminOrPreceptor = (req, res, next) => {

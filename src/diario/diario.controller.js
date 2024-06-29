@@ -224,7 +224,7 @@ export const diariosPut = async (req, res) => {
     await diario.save();
 
     res.status(200).json({
-        msg: 'Journal entry successfully updated',
+        msg: 'Diary entry successfully updated',
         diario
     });
 };

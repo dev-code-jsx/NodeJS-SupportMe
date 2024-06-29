@@ -84,3 +84,60 @@ export const getDiarioByFecha = async (req, res) => {
 
     res.json(diario);
 }
+
+export const diariosPut = async (req, res) => {
+    const { id } = req.params;
+    const { contenido, entryId } = req.body;
+    const usuario = req.usuario;
+
+    const diario = await Diario.findById(id);
+
+    if (!diario) {
+        return res.status(404).json({
+            msg: 'Diary not found'
+        });
+    }
+
+    if (!diario.usuario.equals(usuario._id)) {
+        res.status(403).json({
+            msg: "You don't have access to edit this diary"
+        });
+    }
+
+    const entrada = diario.entradas.id(entryId);
+    if(!entrada) {
+        return res.status(404).json({
+            msg: 'Entry not found'
+        });
+    }
+
+    entrada.contenido = contenido;
+    await diario.save();
+    
+    res.json(diario);
+};
+
+export const diariosDelete = async (req, res) => {
+    const { id } = req.params;
+    const usuario = req.usuario;
+
+    const diario = await Diario.findById(id);
+
+    if (!diario) {
+        return res.status(404).json({
+            msg: 'Diary not found'
+        });
+    }
+
+    if (!diario.usuario.equals(usuario._id)) {
+        res.status(403).json({
+            msg: "You don't have access to delete this diary"
+        });
+    }
+
+    await diario.remove();
+
+    res.json({
+        msg: 'Diary deleted successfully'
+    });
+};

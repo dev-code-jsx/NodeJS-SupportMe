@@ -1,4 +1,4 @@
-import Diario from './diario.model.js'; 
+import Diario from './diario.model.js';
 import Usuario from '../user/user.model.js'
 import mongoose from 'mongoose';
 
@@ -10,7 +10,7 @@ export const diarioPost = async (req, res) => {
 
     let diario = await Diario.findOne({ usuario, fecha: fechaHoy });
 
-    if (!diario){
+    if (!diario) {
         diario = new Diario({ usuario, fecha: fechaHoy, entreadas: [{ contenido }] });
     } else {
         diario.entradas.push({ contenido });
@@ -58,6 +58,27 @@ export const getDiarioById = async (req, res) => {
     if (!diario.usuario._id.equals(usuario._id) && !diario.usuario.preceptor.equals(usuario._id)) {
         return res.status(403).json({
             msg: "You don't have access to view this diary"
+        });
+    }
+
+    res.json(diario);
+}
+
+export const getDiarioByFecha = async (req, res) => {
+    const { pacienteId, fecha } = req.params;
+    const usuario = req.usuario;
+
+    const diario = await Diario.findOne({ usuario: pacienteId, fecha }).populate('usuario', 'nombre preceptor');
+
+    if (!diario) {
+        return res.status(404).json({
+            msg: 'Diary not found'
+        });
+    }
+
+    if (!diario.usuario._id.equals(usuario._id) && !diario.usuario.preceptor.equals(usuario._id)) {
+        return res.status(403).json({
+            msg: 'No tienes permiso para ver este diario'
         });
     }
 

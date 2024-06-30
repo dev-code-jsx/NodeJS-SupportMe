@@ -8,12 +8,13 @@ import {
 } from './mensaje.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validate-jwt.js';
-//import { isAdmin, isPreceptor, isAdminOrPreceptor, isPaciente } from "../middlewares/validate-role.js"
+import { isAdmin, isPreceptor, isAdminOrPreceptor, isPaciente,isPreceptorOrPaciente } from "../middlewares/validate-role.js"
 
 const router = Router();
 
 router.post('/', [
     validarJWT,
+    isPreceptorOrPaciente,
     check('contenido', 'El contenido es obligatorio').not().isEmpty(),
     check('destinatarioId', 'El destinatario es obligatorio').not().isEmpty(),
     validarCampos

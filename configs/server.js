@@ -10,9 +10,8 @@ import authRoutes from '../src/auth/auth.routes.js';
 import { newUser } from '../src/user/user.controller.js';
 import recursoRoutes from "../src/recursos/recurso.routes.js";
 import diarioRoutes from "../src/diario/diario.routes.js";
-/*import userRoutes from '../src/users/user.routes.js';
-import authRoutes from '../src/auth/auth.routes.js';
-import companyRoutes from '../src/companies/company.routes.js';*/
+import mensagesRoutes from "../src/mensajes/mensaje.routes.js";
+
 
 
 class Server{
@@ -23,11 +22,8 @@ class Server{
         this.authPath = '/supportMe/v1/auth'
         this.recursoPath = '/supportMe/v1/recurso'
         this.diarioPath = '/supportMe/v1/diarios'
+        this.mensajesPath = '/supportMe/v1/mensajes'
 
-
-        /*this.usuarioPath = '/companyControl/v1/users'
-        this.authPath = '/companyControl/v1/auth'
-        this.companyPath = '/companyControl/v1/company'*/
 
         this.middlewares();
         this.conectarDB();
@@ -48,13 +44,11 @@ class Server{
     }
 
     routes(){
-        /*this.app.use(this.authPath, authRoutes);
-        this.app.use(this.usuarioPath, userRoutes);
-        this.app.use(this.companyPath, companyRoutes);*/
         this.app.use(this.usuarioPath, userRoutes);
         this.app.use(this.authPath, authRoutes);
         this.app.use(this.recursoPath, recursoRoutes);
         this.app.use(this.diarioPath, diarioRoutes);
+        this.app.use(this.mensajesPath, mensagesRoutes);
     }
 
     listen(){

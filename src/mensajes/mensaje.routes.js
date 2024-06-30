@@ -3,7 +3,7 @@ import { check } from "express-validator";
 import {
     mensajePost,
     getConversaciones,
-    getConversacionByDate,
+    getConversacionesByDate,
     getMensajesPendientes
 } from './mensaje.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
@@ -25,7 +25,7 @@ router.get('/', [
 
 router.get('/:usuarioId/:fecha', [
     validarJWT
-], getConversacionByDate);
+], getConversacionesByDate);
 
 router.get('/pendientes', [
     validarJWT

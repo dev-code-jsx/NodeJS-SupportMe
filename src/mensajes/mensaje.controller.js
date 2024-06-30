@@ -81,3 +81,23 @@ export const getConversacionesByDate = async (req, res) => {
         conversacion
     });
 }
+
+export const getMensajesPendientes = async (req, res) => {
+    const usuarioId = req.usuario._id;
+
+    const conversaciones = await Conversacion.find({
+        usuarios: usuarioId,
+        'mensajes.leido': false
+    }).populate('usuarios', '_id nombre').populate('mensajes.remitente', '_id nombre');
+
+    const mensajesPendientes = conversaciones.map(conversacion => {
+        return {
+            conversacionId: conversacion._id,
+            mensajes: conversacion.mensajes.filter(mensaje => !mensaje.leido)
+        };
+    });
+
+    res.status(200).json({
+        mensajesPendientes
+    });
+}

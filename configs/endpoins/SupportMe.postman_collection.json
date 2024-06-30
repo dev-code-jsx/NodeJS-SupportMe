@@ -88,7 +88,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjdlZTJlNmI0MzUzMDM2OTJiM2UyMGMiLCJyb2xlIjoiIiwiaWF0IjoxNzE5NTkzMDAyLCJleHAiOjE3MTk2MDc0MDJ9.Ar852cVVwa1E8AFZ2tO5z_SOr3bjQPl8cUL2nSkwyH4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2Njc0Njk0YjZkZjc0MTIzMDQyOTBhYjciLCJyb2xlIjoiIiwiaWF0IjoxNzE5Njc2MzA1LCJleHAiOjE3MTk2OTA3MDV9.1MMD54Bn05OrlznikP_qg32BIdRCWsrWO3Q9IhlMMY4",
 									"type": "string"
 								}
 							]
@@ -296,7 +296,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"correo\": \"admin-plataform@gmail.com\",\r\n  \"password\": \"admin123\"\r\n}",
+							"raw": "{\r\n  \"correo\": \"pruebapreceptor2@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -479,6 +479,150 @@
 								"v1",
 								"recurso",
 								"667e1ce7463e0298b4c25c21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "diario",
+			"item": [
+				{
+					"name": "postDiario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjczOTk0MWRkOTQ1NmViMGNlZmRkY2YiLCJyb2xlIjoiIiwiaWF0IjoxNzE5Njc3NDQxLCJleHAiOjE3MTk2OTE4NDF9.ZjsfddMqz-Qe82Rf3LTI8I9R3c2dNPPV2EmZlmqFOHc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"contenido\": \"Ya me salió el agregar entradas del diario :)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/diarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"diarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDiarioByPacienteId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjczMjgxMmIyZTBjODgzNmY5NmIzMWEiLCJyb2xlIjoiIiwiaWF0IjoxNzE5Njc3NTcwLCJleHAiOjE3MTk2OTE5NzB9.9SpvDZBSkUFmbVOSjIw_wAsrJpBtaUpaumekg4M0op8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/diarios/paciente/66739941dd9456eb0cefddcf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"diarios",
+								"paciente",
+								"66739941dd9456eb0cefddcf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDiarioById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjczMjgxMmIyZTBjODgzNmY5NmIzMWEiLCJyb2xlIjoiIiwiaWF0IjoxNzE5Njc3NTcwLCJleHAiOjE3MTk2OTE5NzB9.9SpvDZBSkUFmbVOSjIw_wAsrJpBtaUpaumekg4M0op8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/diarios/668032fb1b8d367432136282",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"diarios",
+								"668032fb1b8d367432136282"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDiarioByPacienteByDate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NjczOThkYWRkOTQ1NmViMGNlZmRkYzQiLCJyb2xlIjoiIiwiaWF0IjoxNzE5Njc4ODM2LCJleHAiOjE3MTk2OTMyMzZ9.Y-vhPeAJcm3vbOFYCI400mAj5cNbBe5TppNZub11Vyw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/supportMe/v1/diarios/fecha/667ef407f3188e0de01154ce/2024-06-29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"supportMe",
+								"v1",
+								"diarios",
+								"fecha",
+								"667ef407f3188e0de01154ce",
+								"2024-06-29"
 							]
 						}
 					},

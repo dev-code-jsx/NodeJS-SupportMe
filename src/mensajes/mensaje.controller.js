@@ -62,9 +62,9 @@ export const mensajePost = async (req, res) => {
 export const getConversaciones = async (req, res) => {
     const usuarioId = req.user.uid; // Cambiado a req.user
 
-    /*const conversaciones = await Conversacion.find({
+    const conversaciones = await Conversacion.find({
         usuarios: usuarioId
-    }).populate('usuarios', '_id nombre').populate('mensajes.remitente', '_id nombre');*/
+    }).populate('usuarios', '_id nombre').populate('mensajes.remitente', '_id nombre');
 
     res.status(200).json({
         conversaciones

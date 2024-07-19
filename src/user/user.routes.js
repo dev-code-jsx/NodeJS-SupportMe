@@ -23,7 +23,7 @@ import { isAdmin, isPreceptor, isAdminOrPreceptor, isPaciente } from "../middlew
 
 const router = Router();
 
-router.get('/', 
+router.get('/listUser', 
     [
         validarJWT,
         isAdminOrPreceptor  
@@ -63,7 +63,7 @@ router.get(
 
 
 router.post(
-    "/",
+    "/addUser",
     [
         check("nombre", "The name is required").not().isEmpty(),
         check("password", "Password is mandatory").not().isEmpty(),

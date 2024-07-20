@@ -25,7 +25,7 @@ router.get('/',
 );
 
 router.post(
-    "/",
+    "/addRecurso",
     [
         validarJWT,
         isAdmin,
@@ -50,7 +50,7 @@ router.get(
 );
 
 router.put(
-    "/:id",
+    "/update/:id",
     [
         validarJWT,
         isAdmin,
@@ -62,7 +62,7 @@ router.put(
 );
 
 router.delete(
-    "/:id",
+    "/delete/:id",
     [
         validarJWT,
         isAdmin,

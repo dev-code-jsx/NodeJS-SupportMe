@@ -1,8 +1,8 @@
 import Recurso from '../recursos/recurso.model.js';
 
 export const recursosPost = async (req, res) => {
-    const { titulo, tipo, contenido } = req.body;
-    const recurso = new Recurso({ titulo, tipo, contenido });
+    const { imagen ,titulo, tipo, contenido } = req.body;
+    const recurso = new Recurso({ imagen ,titulo, tipo, contenido });
 
     await recurso.save();
 

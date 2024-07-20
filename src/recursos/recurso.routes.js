@@ -20,8 +20,6 @@ const router = Router();
 router.get('/',
     [
         validarJWT,
-        isAdminOrPreceptor,
-        isPaciente
     ],
     recursoGet
 );
@@ -31,6 +29,7 @@ router.post(
     [
         validarJWT,
         isAdmin,
+        check("imagen", "La imagen es obligatoria").not().isEmpty(),
         check("titulo", "El título es obligatorio").not().isEmpty(),
         check("tipo", "El tipo es obligatorio").not().isEmpty(),
         check("contenido", "El contenido es obligatorio").not().isEmpty(),
@@ -43,8 +42,6 @@ router.get(
     "/:id",
     [
         validarJWT,
-        isAdminOrPreceptor,
-        isPaciente,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(existeRecursoById),
         validarCampos,
